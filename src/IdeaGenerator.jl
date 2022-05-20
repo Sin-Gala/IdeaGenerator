@@ -1,3 +1,5 @@
+clear() = run(`cmd /c cls`)
+
 #region Base Idea Datas
 @enum IdeaCategories begin
     MainCharacter
@@ -48,6 +50,7 @@ dico = [
 
 #region Main Functions
 function chooseCategoriesToSearch()
+    clear()
     println("Please choose the category you wish to get randomized: \n")
 
     for c in instances(IdeaCategories)
@@ -64,6 +67,7 @@ function chooseCategoriesToSearch()
 end
 
 function generateIdea(index)
+    clear()
     tempDico = []
 
     for v in dico
