@@ -52,15 +52,18 @@ dico = [
 function chooseCategoriesToSearch()
     clear()
     println("Please choose the category you wish to get randomized: \n")
+    println("Enter blank to end this program\n")
 
     for c in instances(IdeaCategories)
         println("$(Int(c)) - $(c)")
     end
     
-    categoryChosen = parse(Int, readline())
+    command = readline()
 
-    if (categoryChosen < length(instances(IdeaCategories)))
-        generateIdea(categoryChosen)
+    if (isempty(command))
+        exit()
+    elseif (parse(Int, command) < length(instances(IdeaCategories)))
+        generateIdea(parse(Int, command))
     else
         chooseCategoriesToSearch()
     end
@@ -69,19 +72,21 @@ end
 function generateIdea(index)
     clear()
     tempDico = []
+    categoryName = MainCharacter
 
     for v in dico
         if (Int(v.category) == index)
             push!(tempDico, v.value)
+            categoryName = v.category
         end
     end
 
-    randNumber = rand((1, length(tempDico)))
+    randNumber = rand((1:length(tempDico)))
     ideaGenerated = tempDico[randNumber]
 
     println("Your idea is: $ideaGenerated")
 
-    println("To generate again an idea in this category, please enter 0.")
+    println("To generate again an idea in the '$categoryName' category, please enter 0.")
     println("Enter anything else to go back to the category menu")
 
     command = readline()
